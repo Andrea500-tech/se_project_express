@@ -5,8 +5,6 @@ const {
   INTERNAL_SERVER_ERROR,
 } = require("../utils/errors");
 
-/* eslint-disable no-console */
-
 const getClothingItems = (req, res) => {
   clothingItem
     .find({})
@@ -86,6 +84,9 @@ const likeClothingItem = (req, res) => {
       if (err.name === "DocumentNotFoundError") {
         return res.status(NOT_FOUND).json({ message: "Item not found" });
       }
+      if (err.name === "CastError") {
+        return res.status(BAD_REQUEST).json({ message: "Invalid item ID" });
+      }
       return res.status(INTERNAL_SERVER_ERROR).json({ message: err.message });
     });
 };
@@ -104,6 +105,9 @@ const unlikeClothingItem = (req, res) => {
       console.error(err);
       if (err.name === "DocumentNotFoundError") {
         return res.status(NOT_FOUND).json({ message: "Item not found" });
+      }
+      if (err.name === "CastError") {
+        return res.status(BAD_REQUEST).json({ message: "Invalid item ID" });
       }
       return res.status(INTERNAL_SERVER_ERROR).json({ message: err.message });
     });

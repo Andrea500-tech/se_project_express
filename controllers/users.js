@@ -5,8 +5,6 @@ const {
   INTERNAL_SERVER_ERROR,
 } = require("../utils/errors"); // import your error constants
 
-/* eslint-disable no-console */
-
 const getUsers = (req, res) => {
   User.find({})
     .then((users) => res.status(200).send(users))

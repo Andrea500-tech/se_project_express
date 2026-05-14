@@ -28,16 +28,15 @@ const clothingItemSchema = new mongoose.Schema({
     ref: "user", // links item to a user
     required: true,
   },
-  likes: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "user", // array of users who liked the item
-      default: [],
-    },
-  ],
+  likes: {
+    type: [mongoose.Schema.Types.ObjectId], // array of ObjectIds
+    ref: "user", // references user collection
+    default: [], // default empty array at field level
+  },
   createdAt: {
     type: Date,
     default: Date.now, // automatically set when created
   },
 });
+
 module.exports = mongoose.model("clothingItem", clothingItemSchema);
