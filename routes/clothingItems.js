@@ -5,8 +5,9 @@ const {
   getClothingItem,
   deleteClothingItem,
   likeClothingItem,
-  unlikeClothingItem
+  unlikeClothingItem,
 } = require("../controllers/clothingItems");
+
 router.get("/", getClothingItems);
 router.post("/", createClothingItem);
 router.get("/:itemId", getClothingItem);
