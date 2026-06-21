@@ -1,16 +1,26 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const mainRouter = require("./routes/index");
+const cors = require("cors");
+const mainRouter = require("./routes/index"); // public routes
+const userRouter = require("./routes/users");
+const auth = require("./middlewares/auth");
 
 const app = express();
+app.use(cors());
 app.use(express.json()); // Middleware to parse JSON bodies
-app.use((req, res, next) => {
-  req.user = {
-    _id: "6a04246f071f24acb42d5cf8", // Example user ID, replace with actual user ID in production
-  };
-  next();
+
+// Public routes (no token required)
+app.use("/", mainRouter);
+
+// Protected routes (token required)
+app.use(auth);
+app.use("/users", userRouter);
+
+// 404 handler
+app.use((req, res) => {
+  res.status(404).json({ message: "Requested resource not found" });
 });
-app.use("/", mainRouter); // Use the main routes
+
 const { PORT = 3001 } = process.env;
 mongoose
   .connect("mongodb://127.0.0.1:27017/wtwr_db")
