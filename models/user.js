@@ -37,9 +37,13 @@ const userSchema = new mongoose.Schema({
     select: false, // do not return password by default when querying user
   },
 });
-//Custom static method for login
-userSchema.statics.findUserByCredentials = function (email, password) {
-  return this.findOne({ email }).select("+password") // explicitly include password
+// Custom static method for login
+userSchema.statics.findUserByCredentials = function findUserByCredentials(
+  email,
+  password
+) {
+  return this.findOne({ email })
+    .select("+password") // explicitly include password
     .then((user) => {
       if (!user) {
         return Promise.reject(new Error("Incorrect email or password"));

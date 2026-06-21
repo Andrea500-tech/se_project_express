@@ -1,4 +1,5 @@
 const bcrypt = require("bcryptjs"); // for password hashing
+const jwt = require("jsonwebtoken"); // for JWT token generation
 const User = require("../models/user"); // your User model
 const {
   BAD_REQUEST,
@@ -8,7 +9,7 @@ const {
   UNAUTHORIZED,
 } = require("../utils/errors"); // error constants
 const { JWT_SECRET } = require("../utils/config");
-const jwt = require("jsonwebtoken");
+
 
 // GET all users
 const getUsers = (req, res) => {
