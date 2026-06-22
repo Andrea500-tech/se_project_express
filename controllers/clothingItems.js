@@ -12,7 +12,9 @@ const getClothingItems = (req, res) => {
     .then((items) => res.status(200).json(items))
     .catch((err) => {
       console.error(err);
-      res.status(INTERNAL_SERVER_ERROR).json({ message: err.message });
+      res
+        .status(INTERNAL_SERVER_ERROR)
+        .json({ message: "An error has occurred on the server" });
     });
 };
 
@@ -26,7 +28,9 @@ const createClothingItem = (req, res) => {
       if (err.name === "ValidationError") {
         return res.status(BAD_REQUEST).json({ message: err.message });
       }
-      return res.status(INTERNAL_SERVER_ERROR).json({ message: err.message });
+      return res
+        .status(INTERNAL_SERVER_ERROR)
+        .json({ message: "An error has occurred on the server" });
     });
 };
 
@@ -39,12 +43,14 @@ const getClothingItem = (req, res) => {
     .catch((err) => {
       console.error(err);
       if (err.name === "DocumentNotFoundError") {
-        return res.status(NOT_FOUND).json({ message: err.message });
+        return res.status(NOT_FOUND).json({ message: "Item not found" });
       }
       if (err.name === "CastError") {
         return res.status(BAD_REQUEST).json({ message: "Invalid item ID" });
       }
-      return res.status(INTERNAL_SERVER_ERROR).json({ message: err.message });
+      return res
+        .status(INTERNAL_SERVER_ERROR)
+        .json({ message: "An error has occurred on the server" });
     });
 };
 
@@ -101,7 +107,9 @@ const likeClothingItem = (req, res) => {
       if (err.name === "CastError") {
         return res.status(BAD_REQUEST).json({ message: "Invalid item ID" });
       }
-      return res.status(INTERNAL_SERVER_ERROR).json({ message: err.message });
+      return res
+        .status(INTERNAL_SERVER_ERROR)
+        .json({ message: "An error has occurred on the server" });
     });
 };
 
@@ -123,7 +131,9 @@ const unlikeClothingItem = (req, res) => {
       if (err.name === "CastError") {
         return res.status(BAD_REQUEST).json({ message: "Invalid item ID" });
       }
-      return res.status(INTERNAL_SERVER_ERROR).json({ message: err.message });
+      return res
+        .status(INTERNAL_SERVER_ERROR)
+        .json({ message: "An error has occurred on the server" });
     });
 };
 

@@ -1,10 +1,7 @@
 const router = require("express").Router();
-const { getUsers, getCurrentUser,updateUser } = require("../controllers/users");
+const { getCurrentUser, updateUser } = require("../controllers/users");
 
 // Protected routes (require JWT via auth middleware)
-
-// GET all users
-router.get("/", getUsers);
 
 // GET current logged-in user
 router.get("/me", getCurrentUser);
