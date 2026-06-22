@@ -39,6 +39,7 @@ const createUser = (req, res) => {
       })
     )
     .catch((err) => {
+
       if (err.code === 11000) {
         // duplicate email error
         return res.status(CONFLICT).send({ message: "Email already exists" });

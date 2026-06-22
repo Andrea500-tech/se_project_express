@@ -1,32 +1,32 @@
-# WTWR (What to Wear?): Back End
+# Project 3: se_project_express
 
-This project is the back end for the WTWR application. It provides a RESTful API for managing users and clothing items, including features like user authorization, item creation/deletion, and the ability to like/unlike items. The goal is to build a secure, tested, and deployed server that integrates with the WTWR frontend.
+A secure backend API for WTWR (What to Wear?)
 
----
+## Description
 
-## Technologies and Techniques Used
+se_project_express is the backend server for the WTWR application. It provides a RESTful API for managing users and clothing items, including features like user authentication, item creation/deletion, and the ability to like/unlike items. The goal is to build a secure, tested, and deployed server that integrates seamlessly with the WTWR frontend.
 
-- **Express.js** — framework for building the server and handling routes.
-- **MongoDB + Mongoose** — database and ODM for storing users and clothing items.
-- **Validator** — input validation (e.g., checking valid URLs).
-- **ESLint (Airbnb config)** — enforces consistent code style and best practices.
-- **Nodemon** — enables hot reload during development.
-- **Error Handling** — custom error codes (400, 404, 500) with CastError and DocumentNotFoundError checks.
-- **Authorization** — routes secured with user ownership checks.
-- **REST API Design** — endpoints for users and clothing items (`/users`, `/items`).
+## Tech Stack
 
-### Notable Implementation Details
+- Node.js – Runtime environment for building the server
+- Express.js – Framework for handling routes and middleware
+- MongoDB + Mongoose – Database and ODM for storing users and clothing items
+- Validator – Input validation (e.g., checking valid URLs and emails)
+- JWT – Secure user authentication with JSON Web Tokens
+- ESLint (Airbnb config) – Enforces consistent code style and best practices
+- Nodemon – Enables hot reload during development
 
-- Clothing items router mounted at `/items` to match frontend/tests.
-- `likes` field defaults to `[]` at the field level for consistent like/unlike behavior.
-- Centralized error handling ensures invalid IDs return **400 Bad Request** instead of **500 Internal Server Error**.
-- Validation rules enforce proper name length, weather enum values, and valid image URLs.
+## Repository
 
----
+Clone the project here:  
+[GitHub Repository](https://github.com/Andrea500-tech/se_project_express.git)
 
-## Running the Project
+## Deployment
 
-```bash
-npm run start   # Launch the server
-npm run dev     # Launch the server with hot reload
-```
+This backend project has been deployed and can be tested with API requests using tools like Postman or integrated with the WTWR frontend.  
+Deployment ensures the server is live, secure, and accessible for real-world use cases.
+
+## Demo Video
+
+Watch my project pitch here:  
+[Loom Video](https://www.loom.com/share/7e75283bdda64afabdeb6d034b817e3d)
