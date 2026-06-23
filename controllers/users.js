@@ -13,8 +13,8 @@ const { JWT_SECRET } = require("../utils/config");
 // GET all users
 const getUsers = (req, res) => {
   User.find({})
-    .then((users) => res.status(200).send(users))
-    .catch((err) =>
+    .then((users) => res.send(users))
+    .catch(() =>
       res
         .status(INTERNAL_SERVER_ERROR)
         .send({ message: "An error has occurred on the server" })
@@ -41,7 +41,6 @@ const createUser = (req, res) => {
     )
     .catch((err) => {
       if (err.code === 11000) {
-        // duplicate email error
         return res.status(CONFLICT).send({ message: "Email already exists" });
       }
       if (err.name === "ValidationError") {
@@ -118,22 +117,21 @@ const updateUser = (req, res) => {
 // LOGIN user
 const login = (req, res) => {
   const { email, password } = req.body;
-  //  Validate input before checking credentials
+
   if (!email || !password) {
     return res
       .status(BAD_REQUEST)
       .send({ message: "Email and password are required" });
   }
-  User.findUserByCredentials(email, password)
+
+  return User.findUserByCredentials(email, password)
     .then((user) => {
       const token = jwt.sign({ _id: user._id }, JWT_SECRET, {
         expiresIn: "7d",
       });
-      res.send({ token });
+      return res.send({ token });
     })
-    .catch(() => {
-      res.status(UNAUTHORIZED).send({ message: "Incorrect email or password" });
-    });
+    .catch(() => res.status(UNAUTHORIZED).send({ message: "Incorrect email or password" }));
 };
 
 module.exports = { getUsers, createUser, getCurrentUser, login, updateUser };
