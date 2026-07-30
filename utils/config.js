@@ -1,3 +1,4 @@
-const JWT_SECRET = "super-secret-key"; // replace with a stronger secret later
+// utils/config.js
+const { JWT_SECRET = "dev-secret-key" } = process.env;
 
 module.exports = { JWT_SECRET };
