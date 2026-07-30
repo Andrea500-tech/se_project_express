@@ -6,7 +6,7 @@ module.exports = (err, req, res, next) => {
   // destructure with default
   const { statusCode = 500, message } = err;
 
-  res.status(statusCode).send({
+  res.status(statusCode).json({
     message: statusCode === 500 ? "An error occurred on the server" : message,
   });
 };
