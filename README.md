@@ -19,7 +19,13 @@ se_project_express is the backend server for the WTWR application. It provides a
 ## Repository
 
 Clone the project here:  
-[GitHub Repository](https://github.com/Andrea500-tech/se_project_express.git)
+[Backend GitHub Repository](https://github.com/Andrea500-tech/se_project_express.git)
+
+## Accessing the Application
+
+- **Deployed Backend Domain**: [https://migombewtwr.strangled.net](https://migombewtwr.strangled.net)
+- **Frontend Repository (Public)**: [se_project_react](https://github.com/Andrea500-tech/se_project_react)
+- **Project Pitch Video**: [Watch on Loom](https://www.loom.com/share/843819c616554cc3ae656e259149a938)
 
 ## Deployment
 
@@ -29,4 +35,4 @@ Deployment ensures the server is live, secure, and accessible for real-world use
 ## Demo Video
 
 Watch my project pitch here:  
-[Loom Video](https://www.loom.com/share/7e75283bdda64afabdeb6d034b817e3d)
+[Loom Video](https://www.loom.com/share/843819c616554cc3ae656e259149a938)

@@ -25,7 +25,12 @@ app.use(express.json());
 
 // Request logger BEFORE routes (logs all incoming requests)
 app.use(requestLogger);
-
+// Crash test route to simulate server crash for testing purposes
+app.get('/crash-test', () => {
+  setTimeout(() => {
+    throw new Error('Server will crash now');
+  }, 0);
+});
 // Mount all routes under "/"
 app.use("/", mainRouter);
 
