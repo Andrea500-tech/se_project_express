@@ -1,7 +1,6 @@
 const router = require("express").Router();
 const {
   createClothingItem,
-  getClothingItem,
   deleteClothingItem,
   likeClothingItem,
   unlikeClothingItem,
@@ -14,8 +13,6 @@ const {
 // Create clothing item (validate body)
 router.post("/", validateCardBody, createClothingItem);
 
-// Get clothing item by ID (validate params)
-router.get("/:itemId", validateItemId, getClothingItem);
 
 // Delete clothing item by ID (validate params)
 router.delete("/:itemId", validateItemId, deleteClothingItem);

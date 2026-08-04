@@ -37,7 +37,10 @@ module.exports.validateUserBody = celebrate({
       "string.uri": 'The "avatar" field must be a valid url',
     }),
     email: Joi.string().required().email(),
-    password: Joi.string().required(),
+    password: Joi.string().min(8).required().messages({
+      "string.min": 'The minimum length of the "password" field is 8',
+      "string.empty": 'The "password" field must be filled in',
+    }),
   }),
 });
 
@@ -57,7 +60,10 @@ module.exports.validateUserUpdate = celebrate({
 module.exports.validateLogin = celebrate({
   body: Joi.object().keys({
     email: Joi.string().required().email(),
-    password: Joi.string().required(),
+    password: Joi.string().min(8).required().messages({
+      "string.min": 'The minimum length of the "password" field is 8',
+      "string.empty": 'The "password" field must be filled in',
+    }),
   }),
 });
 

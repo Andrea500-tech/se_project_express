@@ -33,10 +33,10 @@ const userSchema = new mongoose.Schema({
   password: {
     type: String,
     required: [true, "Password is required"],
-    minlength: 8,
     select: false, // do not return password by default when querying user
   },
 });
+
 // Custom static method for login
 userSchema.statics.findUserByCredentials = function findUserByCredentials(
   email,
@@ -57,4 +57,5 @@ userSchema.statics.findUserByCredentials = function findUserByCredentials(
       });
     });
 };
+
 module.exports = mongoose.model("user", userSchema);

@@ -37,7 +37,7 @@ const createUser = (req, res, next) => {
       if (err.code === 11000) {
         next(new ConflictError("Email already exists"));
       } else if (err.name === "ValidationError") {
-        next(new BadRequestError(err.message));
+        next(new BadRequestError("Invalid user data"));
       } else {
         next(err);
       }
@@ -90,14 +90,15 @@ const updateUser = (req, res, next) => {
     )
     .catch((err) => {
       if (err.name === "DocumentNotFoundError") {
-        next(new NotFoundError("User not found"));
-      } else if (err.name === "CastError") {
-        next(new BadRequestError("Invalid user ID"));
-      } else if (err.name === "ValidationError") {
-        next(new BadRequestError("Invalid user data"));
-      } else {
-        next(err);
+        return next(new NotFoundError("User not found"));
       }
+      if (err.name === "CastError") {
+        return next(new BadRequestError("Invalid user ID"));
+      }
+      if (err.name === "ValidationError") {
+        return next(new BadRequestError("Invalid user data"));
+      }
+      return next(err);
     });
 };
 
@@ -109,14 +110,22 @@ const login = (req, res, next) => {
     return next(new BadRequestError("Email and password are required"));
   }
 
-  User.findUserByCredentials(email, password)
+  return User.findUserByCredentials(email, password)
     .then((user) => {
       const token = jwt.sign({ _id: user._id }, JWT_SECRET, {
         expiresIn: "7d",
       });
-      res.send({ token });
+      return res.send({ token });
     })
-    .catch(() => next(new UnauthorizedError("Incorrect email or password")));
+    .catch((err) => {
+      if (err.message === "Incorrect email or password") {
+        // specific case: bad credentials
+        return next(new UnauthorizedError("Incorrect email or password"));
+      }
+
+      // fallback: unexpected error
+      return next(err);
+    });
 };
 
 module.exports = { getUsers, createUser, getCurrentUser, login, updateUser };

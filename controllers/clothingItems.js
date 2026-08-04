@@ -9,8 +9,8 @@ const {
 const getClothingItems = (req, res, next) => {
   clothingItem
     .find({})
-    .then((items) => res.status(200).json(items))
-    .catch(next); // forward unknown errors
+    .then((items) => res.json(items)) // simplified (defaults to 200)
+    .catch(next);
 };
 
 // CREATE a new clothing item
@@ -19,29 +19,10 @@ const createClothingItem = (req, res, next) => {
 
   clothingItem
     .create({ name, weather, imageUrl, owner: req.user._id })
-    .then((item) => res.status(201).json(item))
+    .then((item) => res.status(201).json(item)) // keep 201 explicit
     .catch((err) => {
       if (err.name === "ValidationError") {
-        next(new BadRequestError(err.message));
-      } else {
-        next(err);
-      }
-    });
-};
-
-// GET single clothing item
-const getClothingItem = (req, res, next) => {
-  const { itemId } = req.params;
-
-  clothingItem
-    .findById(itemId)
-    .orFail()
-    .then((item) => res.status(200).json(item))
-    .catch((err) => {
-      if (err.name === "DocumentNotFoundError") {
-        next(new NotFoundError("Item not found"));
-      } else if (err.name === "CastError") {
-        next(new BadRequestError("Invalid item ID"));
+        next(new BadRequestError("Invalid data"));
       } else {
         next(err);
       }
@@ -61,7 +42,7 @@ const deleteClothingItem = (req, res, next) => {
       }
       return clothingItem.findByIdAndDelete(itemId);
     })
-    .then(() => res.status(200).json({ message: "Item deleted successfully" }))
+    .then(() => res.json({ message: "Item deleted successfully" })) // simplified
     .catch((err) => {
       if (err.name === "DocumentNotFoundError") {
         next(new NotFoundError("Item not found"));
@@ -84,7 +65,7 @@ const likeClothingItem = (req, res, next) => {
       { new: true }
     )
     .orFail()
-    .then((item) => res.status(200).json(item))
+    .then((item) => res.json(item)) // simplified
     .catch((err) => {
       if (err.name === "DocumentNotFoundError") {
         next(new NotFoundError("Item not found"));
@@ -107,7 +88,7 @@ const unlikeClothingItem = (req, res, next) => {
       { new: true }
     )
     .orFail()
-    .then((item) => res.status(200).json(item))
+    .then((item) => res.json(item)) // simplified
     .catch((err) => {
       if (err.name === "DocumentNotFoundError") {
         next(new NotFoundError("Item not found"));
@@ -122,7 +103,6 @@ const unlikeClothingItem = (req, res, next) => {
 module.exports = {
   getClothingItems,
   createClothingItem,
-  getClothingItem,
   deleteClothingItem,
   likeClothingItem,
   unlikeClothingItem,
